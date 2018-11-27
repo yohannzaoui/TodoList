@@ -30,7 +30,7 @@ class TaskController extends AbstractController
      */
     public function listAction(TaskRepository $repository): Response
     {
-        return $this->render('task/list.html.twig', ['tasks' => $repository->findAll()]);
+        return $this->render('task/list_task.html.twig', ['tasks' => $repository->findAll()]);
     }
 
     /**
@@ -48,7 +48,9 @@ class TaskController extends AbstractController
     public function createAction(Request $request, TaskRepository $repository): Response
     {
         $task = new Task();
-        $form = $this->createForm(TaskType::class, $task);
+        $form = $this->createForm(TaskType::class, $task, [
+            'action' => $this->generateUrl('task_create')
+        ]);
 
         $form->handleRequest($request);
 
@@ -60,7 +62,7 @@ class TaskController extends AbstractController
             return $this->redirectToRoute('task_list');
         }
 
-        return $this->render('task/create.html.twig', ['form' => $form->createView()]);
+        return $this->render('task/create_task.html.twig', ['form' => $form->createView()]);
     }
 
     /**
@@ -79,7 +81,9 @@ class TaskController extends AbstractController
      */
     public function editAction(Task $task, TaskRepository $repository, Request $request): Response
     {
-        $form = $this->createForm(TaskType::class, $task);
+        $form = $this->createForm(TaskType::class, $task, [
+            'action' => $this->generateUrl('task_edit', ['id' => $task->getId()])
+        ]);
 
         $form->handleRequest($request);
 
@@ -91,7 +95,7 @@ class TaskController extends AbstractController
             return $this->redirectToRoute('task_list');
         }
 
-        return $this->render('task/edit.html.twig', [
+        return $this->render('task/edit_task.html.twig', [
             'form' => $form->createView(),
             'task' => $task,
         ]);
@@ -101,7 +105,7 @@ class TaskController extends AbstractController
      * @Route(
      *     "/tasks/{id}/toggle",
      *     name="task_toggle",
-     *     methods={"GET", "POST"},
+     *     methods={"GET"},
      *     requirements={"id"="\d+"}
      * )
      *

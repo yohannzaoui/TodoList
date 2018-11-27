@@ -10,10 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
 
 /**
  * Class UserController.
@@ -35,7 +33,7 @@ class UserController extends AbstractController
      */
     public function listAction(UserRepository $repository): Response
     {
-        return $this->render('user/list.html.twig', ['users' => $repository->findAll()]);
+        return $this->render('user/list_user.html.twig', ['users' => $repository->findAll()]);
     }
 
     /**
@@ -58,8 +56,11 @@ class UserController extends AbstractController
         UserPasswordEncoderInterface $passwordEncoder,
         SessionInterface $session
     ): Response {
+
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, [
+            'action' => $this->generateUrl('user_create')
+        ]);
 
         $form->handleRequest($request);
 
@@ -73,12 +74,12 @@ class UserController extends AbstractController
             $this->get('security.token_storage')->setToken($token);
             $session->set('_security_main', serialize($token));
 
-            $this->addFlash('success', "L'utilisateur a bien été ajouté.");
+            $this->addFlash('success', 'L\'utilisateur a bien été ajouté.');
 
             return $this->redirectToRoute('user_list');
         }
 
-        return $this->render('user/create.html.twig', ['form' => $form->createView()]);
+        return $this->render('user/create_user.html.twig', ['form' => $form->createView()]);
     }
 
     /**
@@ -102,7 +103,9 @@ class UserController extends AbstractController
         UserRepository $repository,
         UserPasswordEncoderInterface $passwordEncoder
     ): Response {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, [
+            'action' => $this->generateUrl('user_edit', ['id' => $user->getId()])
+        ]);
 
         $form->handleRequest($request);
 
@@ -112,11 +115,11 @@ class UserController extends AbstractController
 
             $repository->save($user);
 
-            $this->addFlash('success', "L'utilisateur a bien été modifié");
+            $this->addFlash('success', 'L\'utilisateur a bien été modifié');
 
             return $this->redirectToRoute('user_list');
         }
 
-        return $this->render('user/edit.html.twig', ['form' => $form->createView(), 'user' => $user]);
+        return $this->render('user/edit_user.html.twig', ['form' => $form->createView(), 'user' => $user]);
     }
 }
