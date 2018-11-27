@@ -1,9 +1,14 @@
+.idea
+issues.png
+
+php-cs-fixer
+.php_cs.cache
+
 bin/phpunit
 /phpunit.xml
+
 /var/
 /vendor/
-/web/bundles/
-.idea
 .env
 .env.test
 /.env.local
