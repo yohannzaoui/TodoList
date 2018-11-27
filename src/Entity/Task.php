@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Task.
@@ -35,7 +34,6 @@ class Task
      * @var string
      *
      * @ORM\Column(type="string")
-     * @Assert\NotBlank(message="Vous devez saisir un titre.")
      */
     private $title;
 
@@ -43,7 +41,6 @@ class Task
      * @var string
      *
      * @ORM\Column(type="text")
-     * @Assert\NotBlank(message="Vous devez saisir du contenu.")
      */
     private $content;
 

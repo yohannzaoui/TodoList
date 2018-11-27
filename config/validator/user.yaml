@@ -1,0 +1,27 @@
+App\Entity\User:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [email]
+            message: Cet e-mail {{ value }} existe déjà en base de donnée.
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [username]
+            message: Ce nom d'utilisateur {{ value }} existe déjà en base de donnée.
+
+    properties:
+        username:
+            - NotBlank:
+                message: Un nom d'utilisateur est obligatoire
+            - Type:
+                type: string
+                message: La valeur {{ value }} doit être de type {{ type }} valide
+        password:
+            - NotBlank:
+                message: Un mot de passe est obligatoire
+            - Type:
+                type: string
+                message: La valeur {{ value }} doit être de type {{ type }} valide
+        email:
+            - NotBlank:
+                message: Un email est obligatoire.
+            - Email:
+                message: Cet adresse e-mail n'est pas valide.

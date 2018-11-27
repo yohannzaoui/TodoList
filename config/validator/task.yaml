@@ -1,0 +1,13 @@
+App\Entity\Task:
+
+    properties:
+        title:
+            - NotBlank:
+                message: La tâche doit avoir un titre
+            - Type:
+                type: string
+                message: La valeur {{ value }} doit être de type {{ type }} valide
+        content:
+            - Type:
+                type: string
+                message: La valeur {{ value }} doit être de type {{ type }} valide
