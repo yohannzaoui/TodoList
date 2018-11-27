@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,8 +25,6 @@ class UserController extends AbstractController
      *     methods={"GET"}
      * )
      *
-     * @Security("has_role('ROLE_USER')")
-     *
      * @param UserRepository $repository
      *
      * @return Response
@@ -43,8 +40,6 @@ class UserController extends AbstractController
      *     name="user_create",
      *     methods={"GET", "POST"}
      * )
-     *
-     * @Security("has_role('ROLE_USER')")
      *
      * @param Request $request
      * @param UserRepository $repository
@@ -83,7 +78,6 @@ class UserController extends AbstractController
      *     methods={"GET", "POST"},
      *     requirements={"id"="\d+"}
      * )
-     * @Security("has_role('ROLE_USER')")
      *
      * @param Request $request
      * @param User $user

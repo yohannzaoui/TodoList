@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Task;
 use App\Form\TaskType;
 use App\Repository\TaskRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,7 +23,6 @@ class TaskController extends AbstractController
      *     name="task_list",
      *     methods={"GET"}
      * )
-     * @Security("has_role('ROLE_USER')")
      *
      * @param TaskRepository $repository
      *
@@ -41,7 +39,6 @@ class TaskController extends AbstractController
      *     name="task_create",
      *     methods={"GET", "POST"}
      * )
-     * @Security("has_role('ROLE_USER')")
      *
      * @param Request $request
      * @param TaskRepository $repository
@@ -73,7 +70,6 @@ class TaskController extends AbstractController
      *     methods={"GET", "POST"},
      *     requirements={"id"="\d+"}
      * )
-     * @Security("has_role('ROLE_USER')")
      *
      * @param Task $task
      * @param TaskRepository $repository
@@ -108,7 +104,6 @@ class TaskController extends AbstractController
      *     methods={"GET", "POST"},
      *     requirements={"id"="\d+"}
      * )
-     * @Security("has_role('ROLE_USER')")
      *
      * @param Task $task
      * @param TaskRepository $repository
@@ -117,7 +112,7 @@ class TaskController extends AbstractController
      */
     public function toggleTaskAction(Task $task, TaskRepository $repository): Response
     {
-        $task->toggle(!$task->isDone());
+        $task->toggle();
         $repository->save($task);
 
         $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
@@ -132,7 +127,6 @@ class TaskController extends AbstractController
      *     methods={"GET"},
      *     requirements={"id"="\d+"}
      * )
-     * @Security("has_role('ROLE_USER')")
      *
      * @param Task $task
      * @param TaskRepository $repository

@@ -14,7 +14,6 @@ class DefaultController extends AbstractController
      *     name="homepage",
      *     methods={"GET"}
      * )
-     * @Security("has_role('IS_AUTHENTICATED_ANONYMOUSLY')")
      */
     public function indexAction(): Response
     {
