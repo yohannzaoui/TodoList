@@ -4,24 +4,48 @@ namespace App\Controller;
 
 use App\Entity\Task;
 use App\Form\TaskType;
+use App\Repository\TaskRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class TaskController extends Controller
+/**
+ * Class TaskController.
+ *
+ * @package App\Controller
+ */
+class TaskController extends AbstractController
 {
     /**
-     * @Route("/tasks", name="task_list")
+     * @Route(
+     *     "/tasks",
+     *     name="task_list",
+     *     methods={"GET"}
+     * )
+     *
+     * @param TaskRepository $repository
+     *
+     * @return Response
      */
-    public function listAction()
+    public function listAction(TaskRepository $repository): Response
     {
-        return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository('App:Task')->findAll()]);
+        return $this->render('task/list.html.twig', ['tasks' => $repository->findAll()]);
     }
 
     /**
-     * @Route("/tasks/create", name="task_create")
+     * @Route(
+     *     "/tasks/create",
+     *     name="task_create",
+     *     methods={"GET", "POST"}
+     * )
+     *
+     * @param Request $request
+     * @param TaskRepository $repository
+     *
+     * @return Response
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, TaskRepository $repository): Response
     {
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
@@ -29,10 +53,7 @@ class TaskController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-
-            $em->persist($task);
-            $em->flush();
+            $repository->save($task);
 
             $this->addFlash('success', 'La tâche a été bien été ajoutée.');
 
@@ -43,16 +64,27 @@ class TaskController extends Controller
     }
 
     /**
-     * @Route("/tasks/{id}/edit", name="task_edit")
+     * @Route(
+     *     "/tasks/{id}/edit",
+     *     name="task_edit",
+     *     methods={"GET", "POST"},
+     *     requirements={"id"="\d+"}
+     * )
+     *
+     * @param Task $task
+     * @param TaskRepository $repository
+     * @param Request $request
+     *
+     * @return Response
      */
-    public function editAction(Task $task, Request $request)
+    public function editAction(Task $task, TaskRepository $repository, Request $request): Response
     {
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $repository->save($task);
 
             $this->addFlash('success', 'La tâche a bien été modifiée.');
 
@@ -66,12 +98,22 @@ class TaskController extends Controller
     }
 
     /**
-     * @Route("/tasks/{id}/toggle", name="task_toggle")
+     * @Route(
+     *     "/tasks/{id}/toggle",
+     *     name="task_toggle",
+     *     methods={"GET", "POST"},
+     *     requirements={"id"="\d+"}
+     * )
+     *
+     * @param Task $task
+     * @param TaskRepository $repository
+     *
+     * @return Response
      */
-    public function toggleTaskAction(Task $task)
+    public function toggleTaskAction(Task $task, TaskRepository $repository): Response
     {
         $task->toggle(!$task->isDone());
-        $this->getDoctrine()->getManager()->flush();
+        $repository->save($task);
 
         $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
 
@@ -79,13 +121,21 @@ class TaskController extends Controller
     }
 
     /**
-     * @Route("/tasks/{id}/delete", name="task_delete")
+     * @Route(
+     *     "/tasks/{id}/delete",
+     *     name="task_delete",
+     *     methods={"GET"},
+     *     requirements={"id"="\d+"}
+     * )
+     *
+     * @param Task $task
+     * @param TaskRepository $repository
+     *
+     * @return Response
      */
-    public function deleteTaskAction(Task $task)
+    public function deleteTaskAction(TaskRepository $repository, Task $task): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($task);
-        $em->flush();
+        $repository->remove($task);
 
         $this->addFlash('success', 'La tâche a bien été supprimée.');
 
