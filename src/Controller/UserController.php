@@ -8,8 +8,12 @@ use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
 
 /**
  * Class UserController.
@@ -44,13 +48,15 @@ class UserController extends AbstractController
      * @param Request $request
      * @param UserRepository $repository
      * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param SessionInterface $session
      *
      * @return Response
      */
     public function createAction(
         Request $request,
         UserRepository $repository,
-        UserPasswordEncoderInterface $passwordEncoder
+        UserPasswordEncoderInterface $passwordEncoder,
+        SessionInterface $session
     ): Response {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -62,6 +68,10 @@ class UserController extends AbstractController
             $user->setPassword($password);
 
             $repository->save($user);
+
+            $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+            $this->get('security.token_storage')->setToken($token);
+            $session->set('_security_main', serialize($token));
 
             $this->addFlash('success', "L'utilisateur a bien été ajouté.");
 
