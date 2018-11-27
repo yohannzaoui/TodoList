@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,6 +16,8 @@ class SecurityController extends AbstractController
      *     name="login",
      *     methods={"GET"}
      * )
+     * @Security("has_role('IS_AUTHENTICATED_ANONYMOUSLY')")
+     *
      * @param AuthenticationUtils $authenticationUtils
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -36,6 +39,7 @@ class SecurityController extends AbstractController
      *     name="login_check",
      *     methods={"POST"}
      * )
+     * @Security("has_role('IS_AUTHENTICATED_ANONYMOUSLY')")
      */
     public function loginCheck()
     {
@@ -48,6 +52,7 @@ class SecurityController extends AbstractController
      *     name="logout",
      *     methods={"POST"}
      * )
+     * @Security("has_role('IS_AUTHENTICATED_ANONYMOUSLY')")
      */
     public function logoutCheck()
     {
