@@ -8,48 +8,38 @@ use Doctrine\ORM\Mapping as ORM;
  * Class Task.
  *
  * @package App\Entity
- *
- * @ORM\Entity
- * @ORM\Table
  */
 class Task
 {
     /**
      * @var int
-     *
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string")
      */
     private $title;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="text")
      */
     private $content;
 
     /**
      * @var bool
-     *
-     * @ORM\Column(type="boolean")
      */
     private $isDone;
+
+    /**
+     * @var User
+     */
+    private $author;
 
     /**
      * Task constructor.
@@ -110,6 +100,19 @@ class Task
     }
 
     /**
+     * @return string
+     */
+    public function getShortContent()
+    {
+        if (preg_match('/^.{1,100}\b/s', $this->content, $match))
+        {
+            return $match[0];
+        }
+
+        return $this->content;
+    }
+
+    /**
      * @param string $content
      */
     public function setContent(string $content)
@@ -128,5 +131,26 @@ class Task
     public function toggle()
     {
         $this->isDone = !$this->isDone;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setAuthor(User $user)
+    {
+        if (isset($this->author)) {
+            $this->author->removeTask($this);
+        }
+
+        $user->addTask($this);
+        $this->author = $user;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getAuthor(): ? User
+    {
+        return $this->author;
     }
 }

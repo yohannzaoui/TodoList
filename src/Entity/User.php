@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -9,41 +10,46 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * Class User.
  *
  * @package App\Entity
- *
- * @ORM\Table("user")
- * @ORM\Entity
  */
 class User implements UserInterface
 {
     /**
      * @var int
-     *
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string", length=25, unique=true)
      */
     private $username;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string", length=64)
      */
     private $password;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string", length=60, unique=true)
      */
     private $email;
+
+    /**
+     * @var array
+     */
+    private $roles = [];
+
+    /**
+     * @var \ArrayAccess
+     */
+    private $tasks;
+
+    /**
+     * User constructor.
+     */
+    public function __construct()
+    {
+        $this->tasks = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -104,6 +110,42 @@ class User implements UserInterface
     public function setEmail(string $email)
     {
         $this->email = $email;
+    }
+
+    /**
+     * @param Task $task
+     */
+    public function addTask(Task $task)
+    {
+        if (!$this->tasks->contains($task)) {
+            $this->tasks->add($task);
+        }
+    }
+
+    /**
+     * @param Task $task
+     */
+    public function removeTask(Task $task)
+    {
+        if ($this->tasks->contains($task)) {
+            $this->tasks->removeElement($task);
+        }
+    }
+
+    /**
+     * @return \ArrayAccess
+     */
+    public function getTasks(): \ArrayAccess
+    {
+        return $this->tasks;
+    }
+
+    /**
+     * @param string $role
+     */
+    public function setRole(string $role)
+    {
+        $this->roles = [$role];
     }
 
     /**
