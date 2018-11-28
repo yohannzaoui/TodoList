@@ -1,0 +1,10 @@
+{% if not form.vars.valid %}
+    <div class="alert alert-danger alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        {% for children in form.children %}
+            {% if not children.vars.valid %}
+                {{ form_errors(children) }}
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}
