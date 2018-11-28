@@ -47,6 +47,8 @@ class TaskController extends AbstractController
      */
     public function createAction(Request $request, TaskRepository $repository): Response
     {
+        $user = $this->getUser();
+
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task, [
             'action' => $this->generateUrl('task_create')
@@ -55,6 +57,8 @@ class TaskController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $task->setAuthor($user);
+
             $repository->save($task);
 
             $this->addFlash('success', 'La tâche a été bien été ajoutée.');

@@ -56,8 +56,8 @@ class UserController extends AbstractController
         UserPasswordEncoderInterface $passwordEncoder,
         SessionInterface $session
     ): Response {
-
         $user = new User();
+
         $form = $this->createForm(UserType::class, $user, [
             'action' => $this->generateUrl('user_create')
         ]);
@@ -91,7 +91,6 @@ class UserController extends AbstractController
      * )
      *
      * @param Request $request
-     * @param User $user
      * @param UserRepository $repository
      * @param UserPasswordEncoderInterface $passwordEncoder
      *
@@ -99,10 +98,11 @@ class UserController extends AbstractController
      */
     public function editAction(
         Request $request,
-        User $user,
         UserRepository $repository,
         UserPasswordEncoderInterface $passwordEncoder
     ): Response {
+        $user = $this->getUser();
+
         $form = $this->createForm(UserType::class, $user, [
             'action' => $this->generateUrl('user_edit', ['id' => $user->getId()])
         ]);

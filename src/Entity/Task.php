@@ -104,8 +104,7 @@ class Task
      */
     public function getShortContent()
     {
-        if (preg_match('/^.{1,100}\b/s', $this->content, $match))
-        {
+        if (preg_match('/^.{1,100}\b/s', $this->content, $match)) {
             return $match[0];
         }
 
