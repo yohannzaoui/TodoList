@@ -8,48 +8,38 @@ use Doctrine\ORM\Mapping as ORM;
  * Class Task.
  *
  * @package App\Entity
- *
- * @ORM\Entity
- * @ORM\Table
  */
 class Task
 {
     /**
      * @var int
-     *
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string")
      */
     private $title;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="text")
      */
     private $content;
 
     /**
      * @var bool
-     *
-     * @ORM\Column(type="boolean")
      */
     private $isDone;
+
+    /**
+     * @var User
+     */
+    private $author;
 
     /**
      * Task constructor.
@@ -128,5 +118,21 @@ class Task
     public function toggle()
     {
         $this->isDone = !$this->isDone;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setAuthor(User $user)
+    {
+        $this->author = $user;
+    }
+
+    /**
+     * @return User
+     */
+    public function getAuthor(): User
+    {
+        return $this->author;
     }
 }
