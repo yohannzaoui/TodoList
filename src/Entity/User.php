@@ -141,19 +141,19 @@ class User implements UserInterface
     }
 
     /**
-     * @param string $role
+     * @param $role
      */
-    public function setRole(string $role)
+    public function setRoles($role)
     {
-        $this->roles = [$role];
+        $this->roles = $role;
     }
 
     /**
-     * @return array
+     * @return array|string The user roles
      */
     public function getRoles()
     {
-        return array('ROLE_USER');
+        return $this->roles;
     }
 
     public function eraseCredentials()

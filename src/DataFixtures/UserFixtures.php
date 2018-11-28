@@ -25,7 +25,7 @@ final class UserFixtures extends Fixture implements ContainerAwareInterface
             $user->setUsername('User'. $i);
             $user->setEmail("user$i@mail.com");
             $user->setPassword($this->passwordEncoder->encodePassword($user, 'password'. $i));
-            $user->setRole('ROLE_USER');
+            $user->setRoles(['ROLE_USER']);
 
             $manager->persist($user);
             $this->addReference($user->getUsername(), $user);
@@ -35,7 +35,7 @@ final class UserFixtures extends Fixture implements ContainerAwareInterface
         $user->setUsername('root');
         $user->setEmail('root@mail.com');
         $user->setPassword($this->passwordEncoder->encodePassword($user, 'root'));
-        $user->setRole('ROLE_ADMIN');
+        $user->setRoles(['ROLE_ADMIN']);
 
         $manager->persist($user);
         $this->addReference($user->getUsername(), $user);
