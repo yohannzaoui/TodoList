@@ -100,6 +100,19 @@ class Task
     }
 
     /**
+     * @return string
+     */
+    public function getShortContent()
+    {
+        if (preg_match('/^.{1,100}\b/s', $this->content, $match))
+        {
+            return $match[0];
+        }
+
+        return $this->content;
+    }
+
+    /**
      * @param string $content
      */
     public function setContent(string $content)
@@ -125,13 +138,18 @@ class Task
      */
     public function setAuthor(User $user)
     {
+        if (isset($this->author)) {
+            $this->author->removeTask($this);
+        }
+
+        $user->addTask($this);
         $this->author = $user;
     }
 
     /**
-     * @return User
+     * @return User|null
      */
-    public function getAuthor(): User
+    public function getAuthor(): ? User
     {
         return $this->author;
     }

@@ -14,8 +14,13 @@
         <field name="password" type="string" length="64" nullable="false" />
         <field name="email" type="string" length="60" nullable="false" unique="true" />
 
-        <many-to-one target-entity="App\Entity\Task" field="tasks" />
+        <one-to-many field="tasks" target-entity="App\Entity\Task" mapped-by="author">
 
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
     </entity>
 
 </doctrine-mapping>

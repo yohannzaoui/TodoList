@@ -34,10 +34,18 @@ class User implements UserInterface
     private $email;
 
     /**
+     * @var array
+     */
+    private $roles = [];
+
+    /**
      * @var \ArrayAccess
      */
     private $tasks;
 
+    /**
+     * User constructor.
+     */
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
@@ -115,11 +123,29 @@ class User implements UserInterface
     }
 
     /**
+     * @param Task $task
+     */
+    public function removeTask(Task $task)
+    {
+        if ($this->tasks->contains($task)) {
+            $this->tasks->removeElement($task);
+        }
+    }
+
+    /**
      * @return \ArrayAccess
      */
     public function getTasks(): \ArrayAccess
     {
         return $this->tasks;
+    }
+
+    /**
+     * @param string $role
+     */
+    public function setRole(string $role)
+    {
+        $this->roles = [$role];
     }
 
     /**

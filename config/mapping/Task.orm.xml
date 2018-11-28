@@ -6,14 +6,19 @@
 
     <entity name="App\Entity\Task" table="task">
 
-        <id name="id" type="integer" />
+        <id name="id" type="integer">
+            <generator strategy="AUTO" />
+        </id>
 
         <field name="createdAt" type="datetime" length="10" nullable="false" />
         <field name="title" type="string" length="180" nullable="false" />
         <field name="content" type="text" />
         <field name="isDone" type="boolean" />
 
-        <one-to-many target-entity="App\Entity\User" mapped-by="tasks" field="author" orphan-removal="false" />
+        <many-to-one field="author" target-entity="App\Entity\User" orphan-removal="false" inversed-by="task" nullable="true" >
+            <join-column name="user_id" referenced-column-name="id" />
+
+        </many-to-one>
 
     </entity>
 </doctrine-mapping>

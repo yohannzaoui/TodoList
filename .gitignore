@@ -1,5 +1,6 @@
 .idea
 issues.png
+TryController.php
 
 php-cs-fixer
 .php_cs.cache
