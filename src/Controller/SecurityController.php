@@ -2,30 +2,48 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
+use App\Form\LoginType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class SecurityController extends Controller
+class SecurityController extends AbstractController
 {
     /**
-     * @Route("/login", name="login")
+     * @Route(
+     *     "/login",
+     *     name="login",
+     *     methods={"GET"}
+     * )
+     *
+     * @param AuthenticationUtils $authenticationUtils
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function loginAction(Request $request)
+    public function loginAction(AuthenticationUtils $authenticationUtils): Response
     {
-        $authenticationUtils = $this->get('security.authentication_utils');
+        $form = $this->createForm(LoginType::class, null, [
+            'action' => $this->generateUrl('login_check'),
+            'method' => 'POST'
+        ]);
 
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('security/login.html.twig', array(
+            'form' => $form->createView(),
             'last_username' => $lastUsername,
             'error'         => $error,
         ));
     }
 
     /**
-     * @Route("/login_check", name="login_check")
+     * @Route(
+     *     "/login_check",
+     *     name="login_check",
+     *     methods={"POST"}
+     * )
      */
     public function loginCheck()
     {
@@ -33,7 +51,11 @@ class SecurityController extends Controller
     }
 
     /**
-     * @Route("/logout", name="logout")
+     * @Route(
+     *     "/logout",
+     *     name="logout",
+     *     methods={"GET"}
+     * )
      */
     public function logoutCheck()
     {
