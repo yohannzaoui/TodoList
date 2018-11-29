@@ -20,7 +20,7 @@ class TaskController extends AbstractController
     /**
      * @Route(
      *     "/tasks",
-     *     name="task_list",
+     *     name="tasks_list",
      *     methods={"GET"}
      * )
      *
@@ -66,7 +66,7 @@ class TaskController extends AbstractController
 
             $this->addFlash('success', 'La tâche a été bien été ajoutée.');
 
-            return $this->redirectToRoute('task_list');
+            return $this->redirectToRoute('tasks_list');
         }
 
         return $this->render('task/create_task.html.twig', ['form' => $form->createView()]);
@@ -99,7 +99,7 @@ class TaskController extends AbstractController
 
             $this->addFlash('success', 'La tâche a bien été modifiée.');
 
-            return $this->redirectToRoute('task_list');
+            return $this->redirectToRoute('tasks_list');
         }
 
         return $this->render('task/edit_task.html.twig', [
@@ -128,7 +128,7 @@ class TaskController extends AbstractController
 
         $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
 
-        return $this->redirectToRoute('task_list');
+        return $this->redirectToRoute('tasks_list');
     }
 
     /**
@@ -150,6 +150,6 @@ class TaskController extends AbstractController
 
         $this->addFlash('success', 'La tâche a bien été supprimée.');
 
-        return $this->redirectToRoute('task_list');
+        return $this->redirectToRoute('tasks_list');
     }
 }
