@@ -95,6 +95,8 @@ final class RolesAccessTest extends WebTestCase
     {
         yield ['/users'];
         yield ['/users/2/edit']; // attempt to access other user edition
+        yield ['/users/0/delete']; // attempt to delete it's own profil
+        yield ['/users/2/delete']; // attempt to delete other user profil
     }
 
     /**
@@ -129,5 +131,6 @@ final class RolesAccessTest extends WebTestCase
         yield ['/users/create', Response::HTTP_OK];
         yield ['/users/1/edit', Response::HTTP_OK]; // attempt to access other user edition
         yield ['/users/6/edit', Response::HTTP_OK]; // attempt to access own user edition
+        yield ['/users/1/edit', Response::HTTP_OK];
     }
 }
