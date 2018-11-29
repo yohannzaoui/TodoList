@@ -16,7 +16,6 @@ bin/phpunit
 /.env.*.local
 /.web-server-pid
 
-###> symfony/phpunit-bridge ###
 .phpunit
 /phpunit.xml
-###< symfony/phpunit-bridge ###
+_phpunit-coverage

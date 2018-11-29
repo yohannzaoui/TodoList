@@ -20,6 +20,7 @@ final class UserVoter implements VoterInterface
     {
         return $user !== 'anon.'
             && get_class($user) === User::class
+            && !\is_null($subject)
             && get_class($subject) === Request::class
             && $subject->attributes->get('_route') === 'user_edit';
     }

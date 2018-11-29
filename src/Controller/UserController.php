@@ -23,7 +23,7 @@ class UserController extends AbstractController
     /**
      * @Route(
      *     "/users",
-     *     name="user_list",
+     *     name="users_list",
      *     methods={"GET"}
      * )
      *
@@ -76,7 +76,7 @@ class UserController extends AbstractController
 
             $this->addFlash('success', 'L\'utilisateur a bien été ajouté.');
 
-            return $this->redirectToRoute('user_list');
+            return $this->redirectToRoute('users_list');
         }
 
         return $this->render('user/create_user.html.twig', ['form' => $form->createView()]);
@@ -117,9 +117,31 @@ class UserController extends AbstractController
 
             $this->addFlash('success', 'L\'utilisateur a bien été modifié');
 
-            return $this->redirectToRoute('user_list');
+            return $this->redirectToRoute('users_list');
         }
 
         return $this->render('user/edit_user.html.twig', ['form' => $form->createView(), 'user' => $user]);
+    }
+
+    /**
+     * @Route(
+     *     "/users/{id}/delete",
+     *     name="user_delete",
+     *     methods={"GET"},
+     *     requirements={"id"="\d+"}
+     * )
+     *
+     * @param User $user
+     * @param UserRepository $repository
+     *
+     * @return Response
+     */
+    public function delete(UserRepository $repository, User $user): Response
+    {
+        $repository->remove($user);
+
+        $this->addFlash('success', 'L\'utilisateur '. $user->getUsername() .' a bien été supprimée.');
+
+        return $this->redirectToRoute('users_list');
     }
 }
