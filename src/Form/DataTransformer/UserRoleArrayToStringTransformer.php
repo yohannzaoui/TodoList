@@ -10,7 +10,7 @@ use Symfony\Component\Form\DataTransformerInterface;
  *
  * @package App\Form\DataTransformer
  */
-final class UserRoleArrayToStringTransformer implements DataTransformerInterface
+class UserRoleArrayToStringTransformer implements DataTransformerInterface
 {
     /**
      * @param mixed $value

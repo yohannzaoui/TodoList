@@ -31,7 +31,7 @@ class UserController extends AbstractController
      *
      * @return Response
      */
-    public function listAction(UserRepository $repository): Response
+    public function list(UserRepository $repository): Response
     {
         return $this->render('user/list_user.html.twig', ['users' => $repository->findAll()]);
     }
@@ -50,7 +50,7 @@ class UserController extends AbstractController
      *
      * @return Response
      */
-    public function createAction(
+    public function create(
         Request $request,
         UserRepository $repository,
         UserPasswordEncoderInterface $passwordEncoder,
@@ -96,7 +96,7 @@ class UserController extends AbstractController
      *
      * @return Response
      */
-    public function editAction(
+    public function edit(
         Request $request,
         UserRepository $repository,
         UserPasswordEncoderInterface $passwordEncoder

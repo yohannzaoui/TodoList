@@ -28,9 +28,12 @@ class TaskController extends AbstractController
      *
      * @return Response
      */
-    public function listAction(TaskRepository $repository): Response
+    public function list(TaskRepository $repository): Response
     {
-        return $this->render('task/list_task.html.twig', ['tasks' => $repository->findAll()]);
+        return $this->render(
+            'task/list_task.html.twig',
+            ['tasks' => $repository->findAll()]
+        );
     }
 
     /**
@@ -45,7 +48,7 @@ class TaskController extends AbstractController
      *
      * @return Response
      */
-    public function createAction(Request $request, TaskRepository $repository): Response
+    public function create(Request $request, TaskRepository $repository): Response
     {
         $user = $this->getUser();
 
@@ -83,7 +86,7 @@ class TaskController extends AbstractController
      *
      * @return Response
      */
-    public function editAction(Task $task, TaskRepository $repository, Request $request): Response
+    public function edit(Task $task, TaskRepository $repository, Request $request): Response
     {
         $form = $this->createForm(TaskType::class, $task, [
             'action' => $this->generateUrl('task_edit', ['id' => $task->getId()])
@@ -118,7 +121,7 @@ class TaskController extends AbstractController
      *
      * @return Response
      */
-    public function toggleTaskAction(Task $task, TaskRepository $repository): Response
+    public function toggle(Task $task, TaskRepository $repository): Response
     {
         $task->toggle();
         $repository->save($task);
@@ -141,7 +144,7 @@ class TaskController extends AbstractController
      *
      * @return Response
      */
-    public function deleteTaskAction(TaskRepository $repository, Task $task): Response
+    public function delete(TaskRepository $repository, Task $task): Response
     {
         $repository->remove($task);
 
