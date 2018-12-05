@@ -22,9 +22,9 @@ This project is a ToDoList application built with **Symfony 4.1**. This project 
     - `bin/console doctrine:fixtures:load --append` 
     
 ### Documentations
-In [`documentation`][10] folder you can find:
+In [`documents`][10] folder you can find:
 - [A security documentation][11]
-- [A quality and performance analyse][12] witch use [BlackFire][15]
+- [A quality and performance analyse][12] using [BlackFire][15]
 - [The tests coverage][13]
 
 ### Contribution
