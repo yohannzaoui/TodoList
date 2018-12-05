@@ -19,3 +19,4 @@ bin/phpunit
 
 .phpunit
 /phpunit.xml
+/documents/code-coverage/
