@@ -19,7 +19,7 @@ class SecurityController extends AbstractController
      *
      * @param AuthenticationUtils $authenticationUtils
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function loginAction(AuthenticationUtils $authenticationUtils): Response
     {
@@ -34,7 +34,7 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig', array(
             'form' => $form->createView(),
             'last_username' => $lastUsername,
-            'error'         => $error,
+            'error' => $error,
         ));
     }
 }

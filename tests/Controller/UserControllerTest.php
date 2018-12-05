@@ -11,7 +11,7 @@ final class UserControllerTest extends AppWebTestCase
 {
     public function test_list_user()
     {
-        // Count the number of users on DB
+        // Counts the number of users on DB
         $nb = \count($this->getRepository(User::class)->findAll());
         $this->entityManagerClose();
 

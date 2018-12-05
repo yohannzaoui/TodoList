@@ -8,6 +8,11 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class AppWebTestCase extends WebTestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+    }
+
     /**
      * @var \Doctrine\ORM\EntityManager
      */

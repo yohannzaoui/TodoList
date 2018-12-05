@@ -11,7 +11,7 @@ final class TaskControllerTest extends AppWebTestCase
 {
     public function test_tasks_list_display_all_task()
     {
-        // Count the number of tasks on DB
+        // Counts the number of tasks on DB
         $nb = \count($this->getRepository(Task::class)->findAll());
         $this->entityManagerClose();
 
@@ -46,7 +46,7 @@ final class TaskControllerTest extends AppWebTestCase
 
     public function test_post_task_create()
     {
-        // Count the number of task on DB
+        // Counts the number of task on DB
         $nb = \count($this->getRepository(Task::class)->findAll());
         $this->entityManagerClose();
 
