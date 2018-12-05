@@ -44,6 +44,6 @@ To contribute to this project read [How to contribute instructions][14].
 [10]: https://github.com/vlescot/TodoList/tree/master/documents/
 [11]: https://github.com/vlescot/TodoList/tree/master/documents/Security.pdf
 [12]: https://github.com/vlescot/TodoList/tree/master/documents/Quality%20Analyse.pdf
-[13]: https://github.com/vlescot/TodoList/tree/master/documents/code-coverage/index.html
-[14]: https://github.com/vlescot/TodoList/blob/master/CONTRIBUTION.md
+[13]: https://github.com/vlescot/TodoList/tree/master/documents/code-coverage/
+[14]: https://github.com/vlescot/TodoList/blob/master/CONTRIBUTING.md
 [15]: https://blackfire.io/
