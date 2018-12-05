@@ -41,9 +41,9 @@ To contribute to this project read [How to contribute instructions][14].
 [7]: https://getcomposer.org/
 [8]: https://openclassrooms.com/paths/developpeur-se-d-application-php-symfony
 [9]: https://github.com/saro0h/projet8-TodoList
-[10]: https://github.com/vlescot/TodoList/tree/master/documentation
-[11]: https://github.com/vlescot/TodoList/tree/master/documentation/Security.pdf
-[12]: https://github.com/vlescot/TodoList/tree/master/documentation/Quality%20Analyse.pdf
-[13]: https://github.com/vlescot/TodoList/tree/master/documentation/code-coverage/index.html
+[10]: https://github.com/vlescot/TodoList/tree/master/documents/
+[11]: https://github.com/vlescot/TodoList/tree/master/documents/Security.pdf
+[12]: https://github.com/vlescot/TodoList/tree/master/documents/Quality%20Analyse.pdf
+[13]: https://github.com/vlescot/TodoList/tree/master/documents/code-coverage/index.html
 [14]: https://github.com/vlescot/TodoList/blob/master/CONTRIBUTION.md
 [15]: https://blackfire.io/
