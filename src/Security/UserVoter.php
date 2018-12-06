@@ -10,20 +10,29 @@ use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
 final class UserVoter implements VoterInterface
 {
+    const ROUTES =  [
+        'user_edit',
+        'task_edit',
+        'task_delete',
+    ];
+
     /**
      * @param $user
      * @param $subject
+     * @param array $attributes
      *
      * @return bool
      */
-    public function support($user, $subject): bool
+    public function support($user, $subject, array $attributes): bool
     {
         return $user !== 'anon.'
             && get_class($user) === User::class
+            && \in_array('ROLE_ADMIN', $attributes)
             && !\is_null($subject)
             && get_class($subject) === Request::class
-            && $subject->attributes->get('_route') === 'user_edit';
+            && \in_array($subject->attributes->get('_route'), self::ROUTES);
     }
+
 
     /**
      * @param TokenInterface $token
@@ -36,11 +45,27 @@ final class UserVoter implements VoterInterface
     {
         $user = $token->getUser();
 
-        if (!$this->support($user, $subject)) {
+        if (!$this->support($user, $subject, $attributes)) {
             return VoterInterface::ACCESS_ABSTAIN;
         }
 
-        if ($token->getUser()->getId() === intval($subject->attributes->get('id'))) {
+        $route = $subject->attributes->get('_route');
+        $routeId = intval($subject->attributes->get('id'));
+
+
+        $result = false;
+
+        if (preg_match('/task_/', $route)) {
+            $result = ($user->getTasks()->exists(function ($key, $task) use ($routeId) {
+                return $task->getId() === $routeId ?? null; // Checks if tasks's id and route id are equals
+            }));
+        }
+        elseif (preg_match('/user_/', $route)) {
+            $result = $user->getId() === $routeId;
+        }
+
+
+        if ($result) {
             return VoterInterface::ACCESS_GRANTED;
         }
 

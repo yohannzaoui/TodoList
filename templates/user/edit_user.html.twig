@@ -5,7 +5,17 @@
 
 {% block body %}
     <div class="row">
+
+
         <div class="col-xs-offset-3 col-xs-3 col-md-offset-4 col-md-4">
+
+            <div class="row">
+                <a class="btn btn-success pull-left" href="{{ path('users_list') }}" style="margin-bottom: 20px">
+                    Retour
+                </a>
+            </div>
+
+
             {{ form_start(form) }}
             {{ form_errors(form) }}
             {% include '/form/form_errors.html.twig' %}

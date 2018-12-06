@@ -36,4 +36,8 @@ security:
 
         - { path: ^/users, roles: ROLE_ADMIN }
 
+        - { path: ^/tasks/[0-9]+/toggle, roles: ROLE_USER }
+        - { path: ^/tasks/create, roles: ROLE_USER }
+        - { path: ^/tasks/, roles: ROLE_ADMIN }
+
         - { path: ^/, roles: ROLE_USER }

@@ -78,7 +78,7 @@ final class TaskControllerTest extends AppWebTestCase
 
     public function test_post_edit_task()
     {
-        $taskId = '3';
+        $taskId = '1';
 
         $client = static::createClient([], [
             'PHP_AUTH_USER' => 'User0',
@@ -137,7 +137,7 @@ final class TaskControllerTest extends AppWebTestCase
         
     public function test_delete_task()
     {
-        $taskId = '3';
+        $taskId = '1';
 
         $task = $this->getRepository(Task::class)->findOneBy(['id' => $taskId]);
         static::assertInstanceOf(Task::class, $task);

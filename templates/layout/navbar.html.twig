@@ -8,19 +8,19 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li><a href="{{ path('users_list') }}">Voir les utilisateurs</a></li>
+                {% endif %}
                 {% if is_granted('ROLE_USER') %}
                     <li><a href="{{ path('task_create') }}">Créer une tâche</a></li>
                     <li><a href="{{ path('tasks_list') }}">Voir les tâches</a></li>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <li><a href="{{ path('users_list') }}">Voir les utilisateurs</a></li>
-                    {% endif %}
                     <li><a href="{{ path('logout') }}">Déconnexion</a></li>
+                    <li><a href="{{ path('user_edit', {'id' : app.user.id}) }}">Profil</a></li>
                 {% else %}
                     <li><a href="{{ path('user_create') }}">S'inscrire</a></li>
                     <li><a href="{{ path('login') }}">Se connecter</a></li>
                 {% endif %}
             </ul>
         </div><!-- /.navbar-collapse -->
-
     </div><!-- /.container -->
 </nav>

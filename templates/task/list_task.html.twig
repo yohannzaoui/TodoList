@@ -4,21 +4,55 @@
 
 {% block body %}
     <div class="row">
-        <a href="{{ path('task_create') }}" class="btn btn-info pull-right">Créer une tâche</a>
+        <a class="btn btn-success pull-left" href="{{ path('homepage') }}" style="margin-bottom: 20px">
+            Retour
+        </a>
+        <a href="{{ path('task_create') }}" class="btn btn-info pull-right">
+            Créer une tâche
+        </a>
     </div>
     <div class="row">
+
+        {% set userId = app.user.id %}
+        {% set is_admin = is_granted('ROLE_ADMIN') %}
+
         {% for task in tasks %}
+
+            {% if is_admin == true %}
+                {% set allow_change = true %}
+            {% else %}
+                {% set allow_change = false %}
+            {% endif %}
+
+            {% if task.author %}
+                {% if task.author.id is same as(userId) %}
+                    {% set allow_change = true %}
+                {% endif %}
+            {% endif %}
+
         <div class="col-xs-12 col-sm-6 col-md-4">
             <div class="thumbnail">
                 <div class="caption">
                     <div class="pull-right">
                         {% if task.isDone %}<span class="glyphicon glyphicon-ok"></span>{% else %}<span class="glyphicon glyphicon-remove"></span>{% endif %}
                     </div>
-                    <h4><a href="{{ path('task_edit', {'id' : task.id }) }}">{{ task.title }}</a></h4>
+                    <h4>
+                        {% if allow_change %}
+                            <a href="{{ path('task_edit', {'id' : task.id }) }}">{{ task.title }}</a>
+                        {% else %}
+                            {{ task.title }}
+                        {% endif %}
+                    </h4>
                     <p>{{ task.shortContent }}</p>
                     <p class="text-right small"><b>Auteur : </b>
                         {% if task.author %}
-                            {{ task.author.username }}
+                            {% if is_admin %}
+                                <a href="{{ path('user_edit', {'id' : task.author.id }) }}">
+                                    {{ task.author.username }}
+                                </a>
+                            {% else %}
+                                {{ task.author.username }}
+                            {% endif %}
                         {% else %}
                             Anonyme
                         {% endif %}
@@ -27,10 +61,12 @@
                         <a class="btn btn-success btn-sm pull-left" href="{{ path('task_toggle', {'id' : task.id }) }}">
                             {% if not task.isDone %}Marquer comme faite{% else %}Marquer non terminée{% endif %}
                         </a>
-                        <a class="btn btn-danger btn-sm pull-right" href="{{ path('task_delete', {'id' : task.id }) }}"
-                            onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette tâche {{ app.user.username }} ?')"
-                            >Supprimer
-                        </a>
+                        {% if allow_change %}
+                            <a class="btn btn-danger btn-sm pull-right" href="{{ path('task_delete', {'id' : task.id }) }}"
+                               onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette tâche {{ app.user.username }} ?')"
+                                >Supprimer
+                            </a>
+                        {% endif %}
                     </p>
                 </div>
 

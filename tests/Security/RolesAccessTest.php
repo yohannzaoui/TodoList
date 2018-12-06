@@ -64,9 +64,9 @@ final class RolesAccessTest extends WebTestCase
     {
         yield ['/tasks', Response::HTTP_OK];
         yield ['/tasks/create', Response::HTTP_OK];
-        yield ['/tasks/1/edit', Response::HTTP_OK];
-        yield ['/tasks/1/toggle', Response::HTTP_FOUND];
-        yield ['/tasks/1/delete', Response::HTTP_FOUND];
+        yield ['/tasks/2/edit', Response::HTTP_OK]; // Attempt to edit own task
+        yield ['/tasks/2/delete', Response::HTTP_FOUND]; // Attempt to edit own task
+        yield ['/tasks/4/toggle', Response::HTTP_FOUND];
         yield ['/users/create', Response::HTTP_OK];
         yield ['/users/1/edit', Response::HTTP_OK]; // attempt to access own user edition
     }
@@ -93,6 +93,8 @@ final class RolesAccessTest extends WebTestCase
      */
     public function role_user_can_NOT_accessProvider()
     {
+        yield ['/tasks/3/edit']; // attempt to edit other user'task
+        yield ['/tasks/3/delete']; // attempt to delete other user'task
         yield ['/users'];
         yield ['/users/2/edit']; // attempt to access other user edition
         yield ['/users/0/delete']; // attempt to delete it's own profil
@@ -124,13 +126,13 @@ final class RolesAccessTest extends WebTestCase
     {
         yield ['/tasks', Response::HTTP_OK];
         yield ['/tasks/create', Response::HTTP_OK];
-        yield ['/tasks/2/edit', Response::HTTP_OK];
-        yield ['/tasks/2/toggle', Response::HTTP_FOUND];
-        yield ['/tasks/2/delete', Response::HTTP_FOUND];
+        yield ['/tasks/6/edit', Response::HTTP_OK];
+        yield ['/tasks/6/toggle', Response::HTTP_FOUND];
+        yield ['/tasks/6/delete', Response::HTTP_FOUND];
         yield ['/users', Response::HTTP_OK];
         yield ['/users/create', Response::HTTP_OK];
         yield ['/users/1/edit', Response::HTTP_OK]; // attempt to access other user edition
-        yield ['/users/6/edit', Response::HTTP_OK]; // attempt to access own user edition
-        yield ['/users/1/edit', Response::HTTP_OK];
+        yield ['/users/5/edit', Response::HTTP_OK]; // attempt to access own user edition
+        yield ['/users/5/delete', Response::HTTP_FOUND];
     }
 }

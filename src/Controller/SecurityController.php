@@ -21,7 +21,7 @@ class SecurityController extends AbstractController
      *
      * @return Response
      */
-    public function loginAction(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
         $form = $this->createForm(LoginType::class, null, [
             'action' => $this->generateUrl('login_check'),
