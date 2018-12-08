@@ -33,7 +33,7 @@ final class TaskFixtures extends Fixture implements DependentFixtureInterface
 
             if ($i === 0 || $i === 1) { // used to test
                 $task->setAuthor($this->getReference($references[1])); // $references[1] => User0
-            } elseif ($i === 2) { // used to test
+            } elseif ($i === 2 && $i === 3) { // used to test
                 $task->setAuthor($this->getReference($references[rand(1, $nbReferences)]));
             } elseif (rand(0, 1)) {
                 $task->setAuthor($this->getReference($references[rand(0, $nbReferences)]));

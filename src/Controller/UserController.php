@@ -75,7 +75,7 @@ class UserController extends AbstractController
 
             $this->addFlash('success', 'L\'utilisateur a bien été ajouté.');
 
-            return $this->redirectToRoute('users_list');
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('user/create_user.html.twig', ['form' => $form->createView()]);
@@ -90,6 +90,7 @@ class UserController extends AbstractController
      * )
      *
      * @param Request $request
+     * @param User $user
      * @param UserRepository $repository
      * @param UserPasswordEncoderInterface $passwordEncoder
      *
@@ -97,10 +98,10 @@ class UserController extends AbstractController
      */
     public function edit(
         Request $request,
+        User $user,
         UserRepository $repository,
         UserPasswordEncoderInterface $passwordEncoder
     ): Response {
-        $user = $this->getUser();
 
         $form = $this->createForm(UserType::class, $user, [
             'action' => $this->generateUrl('user_edit', ['id' => $user->getId()])
@@ -116,7 +117,7 @@ class UserController extends AbstractController
 
             $this->addFlash('success', 'L\'utilisateur a bien été modifié');
 
-            return $this->redirectToRoute('users_list');
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('user/edit_user.html.twig', ['form' => $form->createView(), 'user' => $user]);
