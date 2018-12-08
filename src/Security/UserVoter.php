@@ -28,7 +28,7 @@ final class UserVoter implements VoterInterface
         return $user !== 'anon.'
             && get_class($user) === User::class
             && \in_array('ROLE_ADMIN', $attributes)
-            && !\is_null($subject)
+            && null !== $subject
             && get_class($subject) === Request::class
             && \in_array($subject->attributes->get('_route'), self::ROUTES);
     }
@@ -50,7 +50,7 @@ final class UserVoter implements VoterInterface
         }
 
         $route = $subject->attributes->get('_route');
-        $routeId = intval($subject->attributes->get('id'));
+        $routeId = (int) $subject->attributes->get('id');
 
 
         $result = false;

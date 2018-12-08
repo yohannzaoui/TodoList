@@ -34,7 +34,7 @@ To contribute to this project read [How to contribute instructions][14].
 
 [1]: https://api.codeclimate.com/v1/badges/ecda728b944ae89446d7/maintainability
 [2]: https://codeclimate.com/github/vlescot/TodoList/maintainability
-[3]: https://api.codacy.com/project/badge/Grade/7631b0f44eea43e0a9082ed44a367beb
+[3]: https://api.codacy.com/project/badge/Grade/b0a3e5aa6c944c1c95dfaa18d0b5f1b4
 [4]: https://www.codacy.com/app/vlescot/TodoList?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=vlescot/TodoList&amp;utm_campaign=Badge_Grade
 [5]: https://travis-ci.org/vlescot/TodoList.svg?branch=master
 [6]: https://travis-ci.org/vlescot/TodoList
