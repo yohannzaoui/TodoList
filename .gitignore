@@ -4,7 +4,6 @@
 php-cs-fixer
 .php_cs.cache
 
-bin/phpunit
 /phpunit.xml
 
 /var/
