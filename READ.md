@@ -1,1 +1,0 @@
-** To lunch Codacy analize** 
