@@ -26,6 +26,7 @@ In [`documents`][10] folder you can find:
 - [A security documentation][11]
 - [A quality and performance analyse][12] using [BlackFire][15]
 - [The tests coverage][13]
+- [UML Diagrams][16]
 
 ### Contribution
 
@@ -47,3 +48,4 @@ To contribute to this project read [How to contribute instructions][14].
 [13]: https://github.com/vlescot/TodoList/tree/master/documents/code-coverage.png/
 [14]: https://github.com/vlescot/TodoList/blob/master/CONTRIBUTING.md
 [15]: https://blackfire.io/
+[16]: https://github.com/vlescot/TodoList/tree/master/documents/UML%20Diagrams/
