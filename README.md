@@ -26,7 +26,7 @@ In [`documents`][10] folder you can find:
 - [A security documentation][11]
 - [A quality and performance analyse][12] using [BlackFire][15]
 - [The tests coverage][13]
-- [UML Diagrams][16]
+- [The UML Diagrams][16]
 
 ### Contribution
 
