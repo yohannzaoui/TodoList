@@ -102,6 +102,7 @@ class UserController extends AbstractController
         UserRepository $repository,
         UserPasswordEncoderInterface $passwordEncoder
     ): Response {
+        $this->denyAccessUnlessGranted('edit', $user);
 
         $form = $this->createForm(UserType::class, $user, [
             'action' => $this->generateUrl('user_edit', ['id' => $user->getId()])

@@ -87,6 +87,8 @@ class TaskController extends AbstractController
      */
     public function edit(Task $task, TaskRepository $repository, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $task);
+
         $form = $this->createForm(TaskType::class, $task, [
             'action' => $this->generateUrl('task_edit', ['id' => $task->getId()])
         ]);
@@ -145,6 +147,8 @@ class TaskController extends AbstractController
      */
     public function delete(TaskRepository $repository, Task $task): Response
     {
+        $this->denyAccessUnlessGranted('delete', $task);
+
         $repository->remove($task);
 
         $this->addFlash('success', 'La tâche a bien été supprimée.');

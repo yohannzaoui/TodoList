@@ -15,7 +15,7 @@
         <field name="email" type="string" length="60" nullable="false" unique="true" />
         <field name="roles" type="simple_array" nullable="false" />
 
-        <one-to-many field="tasks" target-entity="App\Entity\Task" mapped-by="author">
+        <one-to-many field="tasks" target-entity="App\Entity\Task" mapped-by="author"  orphan-removal="false">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>
