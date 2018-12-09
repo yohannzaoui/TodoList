@@ -45,16 +45,7 @@ final class TaskVoter extends Voter
             return false;
         }
 
-        $task = $subject;
-
-        switch ($attribute) {
-            case self::EDIT:
-                return $this->canAccess($task, $user);
-            case self::DELETE:
-                return $this->canAccess($task, $user);
-        }
-
-        throw new \LogicException('This code should not be reached!');
+        return $this->canAccess($subject, $user);
     }
 
     /**

@@ -42,14 +42,7 @@ final class UserVoter extends Voter
             return false;
         }
 
-        $userSubject = $subject;
-
-        switch ($attribute) {
-            case self::EDIT:
-                return $this->checkIsSelf($userSubject, $user);
-        }
-
-        throw new \LogicException('This code should not be reached!');
+        return $this->checkIsSelf($subject, $user);
     }
 
     /**
